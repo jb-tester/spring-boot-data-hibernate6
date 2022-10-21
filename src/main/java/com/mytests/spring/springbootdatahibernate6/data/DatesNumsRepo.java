@@ -115,11 +115,13 @@ public interface DatesNumsRepo extends CrudRepository<DatesAndNumbers, Integer> 
     @Query("select year(current_timestamp())")
     String test_date5( );
 
+    @Query("select d.secondNum*java.lang.Math.PI from DatesAndNumbers d")
+    List<Double> test_pi( );
 
     @Query("select d from DatesAndNumbers d where d.firstDate between d.secondDate and sysdate()")
     List<DatesAndNumbers> checkSysdate();
 
-    @Query("select month(d.firstDate) from DatesAndNumbers d")
+    @Query("select minute(d.firstDate)-minute(d.secondDate) from DatesAndNumbers d where year(local date) - year(d.secondDate) > 1")
     List<String> functionInSelectClause();
 
 }
